@@ -4,7 +4,7 @@ import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import { View, NativeSyntheticEvent, TextInputKeyPressEventData, NativeModules } from 'react-native';
 import chunk from 'lodash.chunk';
 
-type TInputContent = {
+export type TInputContent = {
     wordArray: ReadonlyArray<string | false>,
     wordString: string
 };
