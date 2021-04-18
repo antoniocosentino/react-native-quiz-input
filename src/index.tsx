@@ -19,7 +19,7 @@ type TIndividualCharsInput = {
     autoFocus?: boolean;
     maxBoxesPerLine?: number;
     lineBreakOnSpace?: TLineBreakOnSpace;
-    onChange: ( inputContent: TInputContent ) => any;
+    onChange: ( inputContent: TInputContent ) => void;
 };
 
 const individualCharsInputStyles = {
