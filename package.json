@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "homepage": "https://github.com/antoniocosentino/react-native-quiz-input",
-  "main": "lib/index.js",
+  "main": "src/index.tsx",
   "types": "lib/index.d.ts",
   "author": "Antonio Cosentino <hello@antoniocosentino.com>",
   "license": "MIT",
@@ -29,7 +29,8 @@
     "compile": "rm -rf lib && tsc -p .",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "prepare": "yarn compile",
-    "test": "jest"
+    "test": "jest",
+    "memo": "echo 'in main: replace src/index.tsx with lib/index.js before publishing'"
   },
   "devDependencies": {
     "@babel/core": "^7.13.14",
@@ -62,5 +63,10 @@
       "json",
       "node"
     ]
+  },
+  "dependencies": {
+    "@types/lodash.chunk": "^4.2.6",
+    "lodash.chunk": "^4.2.0",
+    "react-native-gesture-handler": "^1.10.3"
   }
 }
