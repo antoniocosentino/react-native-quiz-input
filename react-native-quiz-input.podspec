@@ -12,7 +12,9 @@ Pod::Spec.new do |s|
   s.homepage     = package['homepage']
   s.platform     = :ios, "10.0"
 
-  s.source       = { :git => "https://github.com/antoniocosentino/react-native-quiz-input", :tag => "v#{s.version}" }
+  s.summary = 'React Native Quiz Input'
+
+  s.source       = { :git => "https://github.com/antoniocosentino/react-native-quiz-input.git", :tag => "v#{s.version}" }
   s.source_files  = "ios/**/*.{h,m,swift}"
 
   s.dependency 'React'
