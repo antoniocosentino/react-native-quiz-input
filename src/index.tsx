@@ -11,7 +11,7 @@ export type TInputContent = {
 
 type TWordStructure = ReadonlyArray<boolean>;
 
-type TLineBreakOnSpace = 'always' | 'auto' | 'never'; // auto doesn't work yet
+type TLineBreakOnSpace = boolean;
 
 type TSmartChunkedArray = ReadonlyArray<TWordStructure>;
 
@@ -67,7 +67,7 @@ const individualCharsInputStyles = StyleSheet.create( {
 const DEFAULT_PROPS = {
     autoFocus: true,
     maxBoxesPerLine: 0,
-    lineBreakOnSpace: 'always'
+    lineBreakOnSpace: false
 } as Partial<TIndividualCharsInput>;
 
 
@@ -99,11 +99,9 @@ const getSmartChunkedArray = (
         return [ wordStructure ];
     }
 
-    if ( lineBreakOnSpace === 'never' ) {
+    if ( !lineBreakOnSpace ) {
         return chunk( wordStructure, maxBoxesPerLine );
     }
-
-    // If we reach here we are in the "auto" or "always" case
 
     const wordStructureAsString = transformWordStructureToString( wordStructure );
     const spaceChunks = wordStructureAsString.split( 'S' );
@@ -141,9 +139,6 @@ const getSmartChunkedArray = (
     const reconstructedArr = transformStringWordStructureToSArr( flattenedArray );
 
     return reconstructedArr;
-
-    // TODO: the 'auto' case is not ready yet
-
 };
 
 

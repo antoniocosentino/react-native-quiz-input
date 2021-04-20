@@ -1,5 +1,5 @@
 import { action } from '@storybook/addon-actions';
-import { boolean, number, select, text } from '@storybook/addon-knobs';
+import { boolean, number, text } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react-native';
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
@@ -25,16 +25,6 @@ const getWordStructure = ( word: string ): ReadonlyArray<boolean> => {
     return binaryArr;
 };
 
-// TODO: check if I can import this from the library, instead of re-declaring
-type TLineBreakOnSpace = 'always' | 'auto' | 'never';
-
-const lineBreakOnSpaceOptions = [
-    'always',
-    'auto',
-    'never'
-] as ReadonlyArray<TLineBreakOnSpace>;
-
-
 storiesOf( 'QuizInput', module )
     .addDecorator( ( getStory ) => <CenterView>{ getStory() }</CenterView> )
     .add( 'Basic Example', () => {
@@ -59,8 +49,8 @@ storiesOf( 'QuizInput', module )
                 <QuizInput
                     wordStructure={ wordStructure }
                     onChange={ action( 'onChange' ) }
-                    maxBoxesPerLine={ number( 'Max boxes per line', 10 ) }
-                    lineBreakOnSpace={ select( 'Line break on space', lineBreakOnSpaceOptions, 'always' ) }
+                    maxBoxesPerLine={ number( 'Max boxes per line', 13 ) }
+                    lineBreakOnSpace={ boolean( 'Line break on space', false ) }
                     autoFocus={ boolean( 'Autofocus', true ) }
                 />
             </View>
