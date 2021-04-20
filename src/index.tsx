@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
-import { View, NativeSyntheticEvent, TextInputKeyPressEventData, NativeModules } from 'react-native';
+import { View, NativeSyntheticEvent, TextInputKeyPressEventData, NativeModules, StyleSheet } from 'react-native';
 import chunk from 'lodash.chunk';
 
 export type TInputContent = {
@@ -23,11 +23,18 @@ type TIndividualCharsInput = {
     onChange: ( inputContent: TInputContent ) => void;
 };
 
-const individualCharsInputStyles = {
+const individualCharsInputStyles = StyleSheet.create( {
+    // this is the View wrapping all Scrollviews
     inputsWrapper: {
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        justifyContent: 'space-around'
     },
+    // this is the ScrollView wrapper
+    scrollViewWrapper: {
+        flexGrow: 0
+    },
+    // this is the ScrollView content
     inputWrapper: {
         display: 'flex',
         flexDirection: 'row',
@@ -55,7 +62,7 @@ const individualCharsInputStyles = {
     spacer: {
         width: 20
     }
-};
+} );
 
 const DEFAULT_PROPS = {
     autoFocus: true,
@@ -292,7 +299,7 @@ export const QuizInput = ( props: TIndividualCharsInput ) => {
         <View style={ individualCharsInputStyles.inputsWrapper as any }>
             { wordStructureRows.map( ( singleRow, rowIndex ) => {
                 return (
-                    <ScrollView keyboardShouldPersistTaps='never' key={ rowIndex } contentContainerStyle={ individualCharsInputStyles.inputWrapper as any }>
+                    <ScrollView style={ individualCharsInputStyles.scrollViewWrapper } keyboardShouldPersistTaps='never' key={ rowIndex } contentContainerStyle={ individualCharsInputStyles.inputWrapper as any }>
 
                         { singleRow.map( ( singleInput, indexInRow ) => {
 

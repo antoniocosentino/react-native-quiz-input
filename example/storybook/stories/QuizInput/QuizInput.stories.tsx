@@ -7,11 +7,8 @@ import CenterView from '../CenterView';
 import { QuizInput } from 'react-native-quiz-input';
 
 const styles = StyleSheet.create( {
-    wrapperView: {
-        height: '50%' // TODO: check if this can have a smart height. Maybe this should be done in the library
-    }
+    wrapperView: {}
 } );
-
 
 const getWordStructure = ( word: string ): ReadonlyArray<boolean> => {
 
