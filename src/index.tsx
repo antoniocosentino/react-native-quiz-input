@@ -98,13 +98,17 @@ const getSmartChunkedArray = (
     maxBoxesPerLine: number,
 ): TSmartChunkedArray => {
 
-    if ( maxBoxesPerLine <= 0 ) {
+    if ( maxBoxesPerLine <= 0  && !lineBreakOnSpace ) {
         return [ wordStructure ];
     }
 
-    if ( !lineBreakOnSpace ) {
+    if ( maxBoxesPerLine > 0 && !lineBreakOnSpace ) {
         return chunk( wordStructure, maxBoxesPerLine );
     }
+
+    // if we are here it means that lineBreakOnSpace is true
+
+    const derivedMaxBoxesPerLine = maxBoxesPerLine > 0 ? maxBoxesPerLine : 100;
 
     const wordStructureAsString = transformWordStructureToString( wordStructure );
     const spaceChunks = wordStructureAsString.split( 'S' );
@@ -120,10 +124,10 @@ const getSmartChunkedArray = (
     } );
 
     const processedSpaceChunks = spaceChunksWithSpaceRow.map( ( singleChunk ) => {
-        if ( singleChunk.length <= maxBoxesPerLine ) {
+        if ( singleChunk.length <= derivedMaxBoxesPerLine ) {
             return singleChunk;
         } else {
-            return chunk( singleChunk, maxBoxesPerLine );
+            return chunk( singleChunk, derivedMaxBoxesPerLine );
         }
     } );
 
