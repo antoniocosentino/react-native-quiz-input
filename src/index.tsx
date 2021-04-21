@@ -15,61 +15,64 @@ type TLineBreakOnSpace = boolean;
 
 type TSmartChunkedArray = ReadonlyArray<TWordStructure>;
 
+type TAllowedSizes = 'small' | 'medium' | 'large';
+
 type TIndividualCharsInput = {
     wordStructure: TWordStructure;
     autoFocus?: boolean;
     maxBoxesPerLine?: number;
     lineBreakOnSpace?: TLineBreakOnSpace;
+    borderColor?: string;
+    size?: TAllowedSizes;
     onChange: ( inputContent: TInputContent ) => void;
 };
 
-const individualCharsInputStyles = StyleSheet.create( {
-    // this is the View wrapping all Scrollviews
-    inputsWrapper: {
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-around'
-    },
-    // this is the ScrollView wrapper
-    scrollViewWrapper: {
-        flexGrow: 0
-    },
-    // this is the ScrollView content
-    inputWrapper: {
-        display: 'flex',
-        flexDirection: 'row',
-        marginBottom: 10,
-        justifyContent: 'center'
-    },
-    singleInput: {
-        width: 26,
-        height: 34,
-        borderRadius: 7,
-        borderBottomWidth: 1,
-        borderBottomColor: '#bbb',
-        borderTopWidth: 1,
-        borderTopColor: '#bbb',
-        borderLeftWidth: 1,
-        borderLeftColor: '#bbb',
-        borderRightWidth: 1,
-        borderRightColor: '#bbb',
-        marginLeft: 1,
-        marginRight: 1,
-        textAlign: 'center',
-        paddingTop: 0,
-        paddingBottom: 0
-    },
-    spacer: {
-        width: 20
-    }
-} );
+type TSizeRelatedProps = {
+    width: number;
+    height: number;
+    borderRadius: number;
+    marginLeft: number;
+    marginRight: number;
+};
 
 const DEFAULT_PROPS = {
     autoFocus: true,
     maxBoxesPerLine: 0,
-    lineBreakOnSpace: false
+    lineBreakOnSpace: false,
+    borderColor: '#BBBBBB',
+    size: 'medium'
 } as Partial<TIndividualCharsInput>;
 
+const getSizeRelatedProps = ( size: TAllowedSizes ): TSizeRelatedProps => {
+    switch ( size ){
+        case 'medium':
+        default:
+            return {
+                width: 26,
+                height: 34,
+                borderRadius: 7,
+                marginLeft: 1,
+                marginRight: 1
+            };
+        case 'small':
+            return {
+                width: 22,
+                height: 28,
+                borderRadius: 5,
+                marginLeft: 1,
+                marginRight: 1
+            };
+        case 'large':
+            return {
+                width: 30,
+                height: 38,
+                borderRadius: 8,
+                marginLeft: 1,
+                marginRight: 1
+            };
+    }
+
+};
 
 const transformWordStructureToString = ( wordStructure: TWordStructure ): string => {
     return wordStructure.map( ( singleLetter ) => {
@@ -215,7 +218,7 @@ export const QuizInput = ( props: TIndividualCharsInput ) => {
         ...props
     } as TIndividualCharsInput;
 
-    const { wordStructure, autoFocus, maxBoxesPerLine, lineBreakOnSpace, onChange: externalOnChange } = mergedProps;
+    const { wordStructure, autoFocus, maxBoxesPerLine, lineBreakOnSpace, borderColor, size, onChange: externalOnChange } = mergedProps;
     const inputsRef = useRef( [] as any );
     const [ activeLetter, setActiveLetter ] = useState( 0 );
     const [ typedWordArray, setTypeWordArray ] = useState( [] as string[] );
@@ -234,6 +237,46 @@ export const QuizInput = ( props: TIndividualCharsInput ) => {
         inputsRef?.current?.[activeLetter]?.clear();
         inputsRef?.current?.[activeLetter]?.focus();
     }, [ activeLetter ] );
+
+    const sizeRelatedProps = getSizeRelatedProps( size! );
+
+    const individualCharsInputStyles = StyleSheet.create( {
+        // this is the View wrapping all Scrollviews
+        inputsWrapper: {
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-around'
+        },
+        // this is the ScrollView wrapper
+        scrollViewWrapper: {
+            flexGrow: 0
+        },
+        // this is the ScrollView content
+        inputWrapper: {
+            display: 'flex',
+            flexDirection: 'row',
+            marginBottom: 10,
+            justifyContent: 'center'
+        },
+        singleInput: {
+            ...sizeRelatedProps,
+            borderBottomWidth: 1,
+            borderBottomColor: borderColor,
+            borderTopWidth: 1,
+            borderTopColor: borderColor,
+            borderLeftWidth: 1,
+            borderLeftColor: borderColor,
+            borderRightWidth: 1,
+            borderRightColor: borderColor,
+            marginRight: 1,
+            textAlign: 'center',
+            paddingTop: 0,
+            paddingBottom: 0
+        },
+        spacer: {
+            width: 20
+        }
+    } );
 
 
     const onLetterChange = ( event: NativeSyntheticEvent<TextInputKeyPressEventData>, index: number ) => {
