@@ -3,8 +3,9 @@ import {
     transformStringWordStructureToSArr,
     getSmartChunkedArray,
     getNextValidIndex,
-    getPreviousValidIndex
-
+    getPreviousValidIndex,
+    getWordStringForExternalMethod,
+    getDerivedIndex
 } from '../index';
 
 describe( 'transformWordStructureToString', () => {
@@ -59,6 +60,7 @@ describe( 'getSmartChunkedArray', () => {
 
         expect( getSmartChunkedArray( input, false, 0 ) ).toEqual( expected );
     } );
+
     it( 'with lineBreakOnSpace false and maxBoxesPerLine should return multiple chunks', () => {
 
         const input = [ true, true, true, true, true, false, true, true, true, true, true  ];
@@ -69,6 +71,7 @@ describe( 'getSmartChunkedArray', () => {
 
         expect( getSmartChunkedArray( input, false, 6 ) ).toEqual( expected );
     } );
+
     it( 'with lineBreakOnSpace true and maxBoxesPerLine should return multiple chunks', () => {
         {
             const input = [ true, true, true, true, true, false, true, true, false, true, true, true, true, true  ];
@@ -97,6 +100,7 @@ describe( 'getSmartChunkedArray', () => {
             expect( getSmartChunkedArray( input, true, 3 ) ).toEqual( expected );
         }
     } );
+
     it( 'if total word length is smaller than maxBoxesPerLine, word should not be splitted', () => {
 
         const input = [ true, true, true, true, true, false, true, true, true, true, true  ];
@@ -104,6 +108,7 @@ describe( 'getSmartChunkedArray', () => {
 
         expect( getSmartChunkedArray( input, false, 11 ) ).toEqual( expected );
     } );
+
     it( 'with lineBreakOnSpace true and maxBoxesPerLine 0 word should be splitted based on spaces', () => {
 
         const input = [ true, true, true, true, true, false, true, true, true, true, true  ];
@@ -156,6 +161,106 @@ describe( 'getPreviousValidIndex', () => {
         {
             const input = [ true, false, true, true ];
             expect( getPreviousValidIndex( input, 0 ) ).toEqual( 0 );
+        }
+
+    } );
+} );
+
+describe( 'getWordStringForExternalMethod', () => {
+    it( 'should return the constructed word based on the array of letters', () => {
+        {
+            const input = [ 'Y', 'O', 'L', 'O' ];
+            expect( getWordStringForExternalMethod( input ) ).toEqual( 'YOLO' );
+        }
+
+        {
+            const input = [ 'H', 'E', 'L', 'L', 'O', undefined, 'W', 'O', 'R', 'L', 'D' ];
+            expect( getWordStringForExternalMethod( input  ) ).toEqual( 'HELLO WORLD' );
+        }
+
+    } );
+} );
+
+describe( 'getDerivedIndex', () => {
+    it( 'provided a row and an index in the row, should give back the original index', () => {
+        {
+            const input = [
+                [ true, false, true, true ],
+                [ true, true, false, true ],
+                [ true, true, true, false ],
+                [ false, true, true, true ]
+            ];
+
+            expect( getDerivedIndex( input, 1, 1 ) ).toEqual( 5 );
+        }
+
+        {
+            const input = [
+                [ true, false, true, true ],
+                [ true, true, false, true ],
+                [ true, true, true, false ],
+                [ false, true, true, true ]
+            ];
+
+            expect( getDerivedIndex( input, 3, 0 ) ).toEqual( 12 );
+        }
+
+        {
+            const input = [
+                [ true, false, true, true ],
+                [ true, true, false, true ],
+                [ true, true, true, false ],
+                [ false, true, true, true ]
+            ];
+
+            expect( getDerivedIndex( input, 0, 2 ) ).toEqual( 2 );
+        }
+
+    } );
+
+    it( 'provided a row and an index in the row, should give back the original index even with unequal rows', () => {
+        {
+            const input = [
+                [ true, false, true ],
+                [ true, true, false, true ],
+                [ true, true ],
+                [ false, true, true, true ]
+            ];
+
+            expect( getDerivedIndex( input, 1, 1 ) ).toEqual( 4 );
+        }
+
+        {
+            const input = [
+                [ true, false, true ],
+                [ true, true, false, true ],
+                [ true, true ],
+                [ false, true, true, true ]
+            ];
+
+            expect( getDerivedIndex( input, 3, 0 ) ).toEqual( 9 );
+        }
+
+        {
+            const input = [
+                [ true, false, true ],
+                [ true, true, false, true ],
+                [ true, true ],
+                [ false, true, true, true ]
+            ];
+
+            expect( getDerivedIndex( input, 0, 2 ) ).toEqual( 2 );
+        }
+
+        {
+            const input = [
+                [ true, false, true ],
+                [ true, true, false, true ],
+                [ true, true ],
+                [ false, true, true, true ]
+            ];
+
+            expect( getDerivedIndex( input, 2, 1 ) ).toEqual( 8 );
         }
 
     } );

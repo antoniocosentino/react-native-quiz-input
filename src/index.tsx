@@ -136,7 +136,7 @@ export const getSmartChunkedArray = (
         }
     } );
 
-    const flattenedArray = [] as any; // TODO: type!
+    const flattenedArray = [] as string[];
 
     processedSpaceChunks.forEach( ( singleChunk ) => {
         if ( Array.isArray( singleChunk ) ) {
@@ -179,7 +179,7 @@ export const getPreviousValidIndex = ( wordStructure: TWordStructure, currentInd
     return getPreviousValidIndex( wordStructure, currentIndex - 1 );
 };
 
-const getWordStringForExternalMethod = ( newWordArray: string[] ): string => {
+export const getWordStringForExternalMethod = ( newWordArray: string[] ): string => {
 
     const processedArr = [];
 
@@ -204,8 +204,7 @@ const getWordStringForExternalMethod = ( newWordArray: string[] ): string => {
     return processedArr.join( '' );
 };
 
-
-const getDerivedIndex = ( smartChunkedArray: TSmartChunkedArray, rowIndex: number, indexInRow: number ) => {
+export const getDerivedIndex = ( smartChunkedArray: TSmartChunkedArray, rowIndex: number, indexInRow: number ): number => {
     if ( rowIndex === 0 ) {
         return indexInRow;
     }
@@ -315,7 +314,6 @@ export const QuizInput = ( props: TIndividualCharsInput ) => {
             }
 
         } else {
-            // TODO: consider filtering chars via regex
             typedWordArrayClone[ index ] = nativeEvent.key;
 
             const nextIndex = getNextValidIndex( wordStructure, index );
