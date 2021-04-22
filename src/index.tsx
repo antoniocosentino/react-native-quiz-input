@@ -23,6 +23,8 @@ type TIndividualCharsInput = {
     maxBoxesPerLine?: number;
     lineBreakOnSpace?: TLineBreakOnSpace;
     borderColor?: string;
+    backgroundColor?: string;
+    textColor?: string;
     size?: TAllowedSizes;
     onChange: ( inputContent: TInputContent ) => void;
 };
@@ -40,6 +42,8 @@ const DEFAULT_PROPS = {
     maxBoxesPerLine: 0,
     lineBreakOnSpace: false,
     borderColor: '#BBBBBB',
+    backgroundColor: 'transparent',
+    textColor: '#000000',
     size: 'medium'
 } as Partial<TIndividualCharsInput>;
 
@@ -222,7 +226,17 @@ export const QuizInput = ( props: TIndividualCharsInput ) => {
         ...props
     } as TIndividualCharsInput;
 
-    const { wordStructure, autoFocus, maxBoxesPerLine, lineBreakOnSpace, borderColor, size, onChange: externalOnChange } = mergedProps;
+    const {
+        wordStructure,
+        autoFocus,
+        maxBoxesPerLine,
+        lineBreakOnSpace,
+        borderColor,
+        backgroundColor,
+        textColor,
+        size,
+        onChange: externalOnChange
+    } = mergedProps;
     const inputsRef = useRef( [] as any );
     const [ activeLetter, setActiveLetter ] = useState( 0 );
     const [ typedWordArray, setTypeWordArray ] = useState( [] as string[] );
@@ -264,6 +278,8 @@ export const QuizInput = ( props: TIndividualCharsInput ) => {
         },
         singleInput: {
             ...sizeRelatedProps,
+            backgroundColor,
+            color: textColor,
             borderBottomWidth: 1,
             borderBottomColor: borderColor,
             borderTopWidth: 1,

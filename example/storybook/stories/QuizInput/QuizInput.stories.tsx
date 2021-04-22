@@ -60,7 +60,9 @@ storiesOf( 'QuizInput', module )
                     maxBoxesPerLine={ number( 'Max boxes per line', 0 ) }
                     lineBreakOnSpace={ boolean( 'Line break on space', false ) }
                     autoFocus={ boolean( 'Autofocus', true ) }
-                    borderColor={ color( 'Border Color', '#BBBBBB' ) }
+                    backgroundColor={ color( 'Box BG Color', 'transparent' ) }
+                    textColor={ color( 'Text Color', '#000' ) }
+                    borderColor={ color( 'Box Border Color', '#BBBBBB' ) }
                     size={ select( 'Size', sizeOptions, 'medium' ) }
                 />
             </View>
