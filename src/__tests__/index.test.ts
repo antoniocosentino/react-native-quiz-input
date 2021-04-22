@@ -5,6 +5,7 @@ import {
     getNextValidIndex,
     getPreviousValidIndex,
     getWordStringForExternalMethod,
+    getWordArrayForExternalMethod,
     getDerivedIndex
 } from '../index';
 
@@ -176,6 +177,37 @@ describe( 'getWordStringForExternalMethod', () => {
         {
             const input = [ 'H', 'E', 'L', 'L', 'O', undefined, 'W', 'O', 'R', 'L', 'D' ];
             expect( getWordStringForExternalMethod( input  ) ).toEqual( 'HELLO WORLD' );
+        }
+
+    } );
+} );
+
+describe( 'getWordArrayForExternalMethod', () => {
+    it( 'given a word structure and an array of letters should construct the final array', () => {
+
+        const input1 = [ true, true, true, true, true, false, true, true, true, true, true ];
+        const input2 = [ 'H', 'E', 'L', 'L', 'O', undefined, 'W', 'O', 'R', 'L', 'D' ];
+        const expected = [ 'H', 'E', 'L', 'L', 'O', false, 'W', 'O', 'R', 'L', 'D' ];
+
+        expect( getWordArrayForExternalMethod( input1, input2 ) ).toEqual( expected );
+
+    } );
+
+    it( 'if certain letters are undefined, should return an empty string', () => {
+        {
+            const input1 = [ true, true, true, true, true, false, true, true, true, true, true ];
+            const input2 = [ 'H', 'E', 'L', 'L', 'O', undefined, 'W', 'O', 'R', undefined, undefined ];
+            const expected = [ 'H', 'E', 'L', 'L', 'O', false, 'W', 'O', 'R', '', '' ];
+
+            expect( getWordArrayForExternalMethod( input1, input2 ) ).toEqual( expected );
+        }
+
+        {
+            const input1 = [ true, true, true, true, true, false, true, true, true, true, true ];
+            const input2 = [ undefined, undefined, 'L', 'L', 'O', undefined, 'W', 'O', 'R', 'L', 'D' ];
+            const expected = [ '', '', 'L', 'L', 'O', false, 'W', 'O', 'R', 'L', 'D' ];
+
+            expect( getWordArrayForExternalMethod( input1, input2 ) ).toEqual( expected );
         }
 
     } );

@@ -204,6 +204,24 @@ export const getWordStringForExternalMethod = ( newWordArray: string[] ): string
     return processedArr.join( '' );
 };
 
+export const getWordArrayForExternalMethod = ( wordStructure: TWordStructure, newWordArray: string[] ): ReadonlyArray<string | false> => {
+
+    const wordForExternalMethod = wordStructure.map( ( singleSlot, index ) => {
+
+        if ( singleSlot === false ) {
+            return singleSlot;
+        }
+
+        if ( newWordArray[ index ] ) {
+            return newWordArray[ index ];
+        } else {
+            return '';
+        }
+    } );
+
+    return wordForExternalMethod;
+};
+
 export const getDerivedIndex = ( smartChunkedArray: TSmartChunkedArray, rowIndex: number, indexInRow: number ): number => {
     if ( rowIndex === 0 ) {
         return indexInRow;
@@ -323,30 +341,12 @@ export const QuizInput = ( props: TIndividualCharsInput ) => {
         setTypeWordArray( typedWordArrayClone );
 
         const inputContent = {
-            wordArray: getWordArrayForExternalMethod( typedWordArrayClone ),
+            wordArray: getWordArrayForExternalMethod( wordStructure, typedWordArrayClone ),
             wordString: getWordStringForExternalMethod( typedWordArrayClone )
         } as TInputContent;
 
         externalOnChange( inputContent  );
 
-    };
-
-    const getWordArrayForExternalMethod = ( newWordArray: string[] ): ReadonlyArray<string | false> => {
-
-        const wordForExternalMethod = wordStructure.map( ( singleSlot, index ) => {
-
-            if ( singleSlot === false ) {
-                return singleSlot;
-            }
-
-            if ( newWordArray[ index ] ) {
-                return newWordArray[ index ];
-            } else {
-                return '';
-            }
-        } );
-
-        return wordForExternalMethod;
     };
 
     const wordStructureRows = getSmartChunkedArray( wordStructure, lineBreakOnSpace!, maxBoxesPerLine! );
