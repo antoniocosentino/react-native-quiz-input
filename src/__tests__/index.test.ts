@@ -67,16 +67,49 @@ describe( 'getSmartChunkedArray', () => {
         expect( getSmartChunkedArray( input, false, 6 ) ).toEqual( expected );
     } );
     it( 'with lineBreakOnSpace true and maxBoxesPerLine should return multiple chunks', () => {
+        {
+            const input = [ true, true, true, true, true, false, true, true, false, true, true, true, true, true  ];
+            const expected = [
+                [ true, true, true, true, true ],
+                [ false ],
+                [ true, true ],
+                [ false ],
+                [ true, true, true, true, true ]
+            ];
 
-        const input = [ true, true, true, true, true, false, true, true, false, true, true, true, true, true  ];
+            expect( getSmartChunkedArray( input, true, 6 ) ).toEqual( expected );
+        }
+        {
+            const input = [ true, true, true, true, true, false, true, true, false, true, true, true, true, true  ];
+            const expected = [
+                [ true, true, true ],
+                [ true, true ],
+                [ false ],
+                [ true, true ],
+                [ false ],
+                [ true, true, true ],
+                [ true, true ]
+            ];
+
+            expect( getSmartChunkedArray( input, true, 3 ) ).toEqual( expected );
+        }
+    } );
+    it( 'if total word length is smaller than maxBoxesPerLine, word should not be splitted', () => {
+
+        const input = [ true, true, true, true, true, false, true, true, true, true, true  ];
+        const expected = [ input ];
+
+        expect( getSmartChunkedArray( input, false, 11 ) ).toEqual( expected );
+    } );
+    it( 'with lineBreakOnSpace true and maxBoxesPerLine 0 word should be splitted based on spaces', () => {
+
+        const input = [ true, true, true, true, true, false, true, true, true, true, true  ];
         const expected = [
             [ true, true, true, true, true ],
-            [ false ],
-            [ true, true ],
             [ false ],
             [ true, true, true, true, true ]
         ];
 
-        expect( getSmartChunkedArray( input, true, 6 ) ).toEqual( expected );
+        expect( getSmartChunkedArray( input, true, 0 ) ).toEqual( expected );
     } );
 } );
