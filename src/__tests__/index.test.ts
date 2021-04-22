@@ -1,6 +1,7 @@
 import {
     transformWordStructureToString,
-    transformStringWordStructureToSArr
+    transformStringWordStructureToSArr,
+    getSmartChunkedArray
 } from '../index';
 
 describe( 'transformWordStructureToString', () => {
@@ -44,5 +45,38 @@ describe( 'transformStringWordStructureToSArr', () => {
             expect( transformStringWordStructureToSArr( input ) ).toEqual( expected );
         }
 
+    } );
+} );
+
+describe( 'getSmartChunkedArray', () => {
+    it( 'with lineBreakOnSpace false and maxBoxesPerLine 0 should just return one row', () => {
+
+        const input = [ true, true, true, true, true, false, true, true, true, true, true  ];
+        const expected = [ input ];
+
+        expect( getSmartChunkedArray( input, false, 0 ) ).toEqual( expected );
+    } );
+    it( 'with lineBreakOnSpace false and maxBoxesPerLine should return multiple chunks', () => {
+
+        const input = [ true, true, true, true, true, false, true, true, true, true, true  ];
+        const expected = [
+            [ true, true, true, true, true, false ],
+            [ true, true, true, true, true ]
+        ];
+
+        expect( getSmartChunkedArray( input, false, 6 ) ).toEqual( expected );
+    } );
+    it( 'with lineBreakOnSpace true and maxBoxesPerLine should return multiple chunks', () => {
+
+        const input = [ true, true, true, true, true, false, true, true, false, true, true, true, true, true  ];
+        const expected = [
+            [ true, true, true, true, true ],
+            [ false ],
+            [ true, true ],
+            [ false ],
+            [ true, true, true, true, true ]
+        ];
+
+        expect( getSmartChunkedArray( input, true, 6 ) ).toEqual( expected );
     } );
 } );

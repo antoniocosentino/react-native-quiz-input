@@ -97,7 +97,7 @@ export const transformStringWordStructureToSArr = ( wordStructureAsString: Reado
     } );
 };
 
-const getSmartChunkedArray = (
+export const getSmartChunkedArray = (
     wordStructure: TWordStructure,
     lineBreakOnSpace: TLineBreakOnSpace,
     maxBoxesPerLine: number,
