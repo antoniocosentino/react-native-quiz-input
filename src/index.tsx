@@ -153,10 +153,9 @@ export const getSmartChunkedArray = (
     return reconstructedArr;
 };
 
+export const getNextValidIndex = ( wordStructure: TWordStructure, currentIndex: number ): number => {
 
-const getNextValidIndex = ( wordStructure: TWordStructure, currentIndex: number ): number => {
-
-    if ( currentIndex > wordStructure.length ) {
+    if ( currentIndex >= wordStructure.length - 1 ) {
         return currentIndex;
     }
 
@@ -167,7 +166,7 @@ const getNextValidIndex = ( wordStructure: TWordStructure, currentIndex: number 
     return getNextValidIndex( wordStructure, currentIndex + 1 );
 };
 
-const getPreviousValidIndex = ( wordStructure: TWordStructure, currentIndex: number ): number => {
+export const getPreviousValidIndex = ( wordStructure: TWordStructure, currentIndex: number ): number => {
 
     if ( currentIndex <= 0 ) {
         return currentIndex;

@@ -1,7 +1,10 @@
 import {
     transformWordStructureToString,
     transformStringWordStructureToSArr,
-    getSmartChunkedArray
+    getSmartChunkedArray,
+    getNextValidIndex,
+    getPreviousValidIndex
+
 } from '../index';
 
 describe( 'transformWordStructureToString', () => {
@@ -111,5 +114,49 @@ describe( 'getSmartChunkedArray', () => {
         ];
 
         expect( getSmartChunkedArray( input, true, 0 ) ).toEqual( expected );
+    } );
+} );
+
+describe( 'getNextValidIndex', () => {
+    it( 'should return the next valid index based on the current array', () => {
+        {
+            const input = [ true, false, true, true ];
+            expect( getNextValidIndex( input, 0 ) ).toEqual( 2 );
+        }
+        {
+            const input = [ true, false, true, true ];
+            expect( getNextValidIndex( input, 1 ) ).toEqual( 2 );
+        }
+        {
+            const input = [ true, false, false, true ];
+            expect( getNextValidIndex( input, 1 ) ).toEqual( 3 );
+        }
+        {
+            const input = [ true, false, true, true ];
+            expect( getNextValidIndex( input, 3 ) ).toEqual( 3 );
+        }
+
+    } );
+} );
+
+describe( 'getPreviousValidIndex', () => {
+    it( 'should return the previous valid index based on the current array', () => {
+        {
+            const input = [ true, false, true, true ];
+            expect( getPreviousValidIndex( input, 3 ) ).toEqual( 2 );
+        }
+        {
+            const input = [ true, false, true, true ];
+            expect( getPreviousValidIndex( input, 2 ) ).toEqual( 0 );
+        }
+        {
+            const input = [ true, false, false, true ];
+            expect( getPreviousValidIndex( input, 3 ) ).toEqual( 0 );
+        }
+        {
+            const input = [ true, false, true, true ];
+            expect( getPreviousValidIndex( input, 0 ) ).toEqual( 0 );
+        }
+
     } );
 } );
