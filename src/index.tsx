@@ -78,7 +78,8 @@ const getSizeRelatedProps = ( size: TAllowedSizes ): TSizeRelatedProps => {
 
 };
 
-const transformWordStructureToString = ( wordStructure: TWordStructure ): string => {
+export const transformWordStructureToString = ( wordStructure: TWordStructure ): string => {
+
     return wordStructure.map( ( singleLetter ) => {
         if ( singleLetter ) {
             return 'L';
@@ -88,7 +89,7 @@ const transformWordStructureToString = ( wordStructure: TWordStructure ): string
     } ).join( '' );
 };
 
-const transformStringWordStructureToSArr = ( wordStructureAsString: ReadonlyArray<string> ): TSmartChunkedArray => {
+export const transformStringWordStructureToSArr = ( wordStructureAsString: ReadonlyArray<string> ): TSmartChunkedArray => {
 
     return wordStructureAsString.map( ( singleBlock ) => {
         const singleBlockAsArr = singleBlock.split( '' );
@@ -372,6 +373,7 @@ export const QuizInput = ( props: TIndividualCharsInput ) => {
                                         maxLength={ 1 }
                                         onKeyPress={ ( event ) => onLetterChange( event, derivedIndex ) }
                                         autoCorrect={ false }
+                                        autoCompleteType={ 'off' }
                                         autoCapitalize={ 'characters' }
                                     />
                                 );
