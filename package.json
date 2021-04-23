@@ -8,8 +8,6 @@
   "author": "Antonio Cosentino <hello@antoniocosentino.com>",
   "license": "MIT",
   "files": [
-    "android",
-    "ios",
     "lib",
     "react-native-quiz-input.podspec",
     "!.DS_Store",
