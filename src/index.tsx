@@ -4,7 +4,7 @@ import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import { View, NativeSyntheticEvent, TextInputKeyPressEventData, NativeModules, StyleSheet } from 'react-native';
 import chunk from 'lodash.chunk';
 
-export type TInputContent = {
+export type TCallbackData = {
     wordArray: ReadonlyArray<string | false>,
     wordString: string
 };
@@ -26,7 +26,7 @@ type TIndividualCharsInput = {
     backgroundColor?: string;
     textColor?: string;
     size?: TAllowedSizes;
-    onChange: ( inputContent: TInputContent ) => void;
+    onChange: ( inputContent: TCallbackData ) => void;
 };
 
 type TSizeRelatedProps = {
@@ -343,7 +343,7 @@ export const QuizInput = ( props: TIndividualCharsInput ) => {
         const inputContent = {
             wordArray: getWordArrayForExternalMethod( wordStructure, typedWordArrayClone ),
             wordString: getWordStringForExternalMethod( typedWordArrayClone )
-        } as TInputContent;
+        } as TCallbackData;
 
         externalOnChange( inputContent  );
 

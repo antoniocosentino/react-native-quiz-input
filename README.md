@@ -5,7 +5,7 @@
 ![Basic Demo]( assets/basic-demo.gif )
 
 ## Description
-`react-native-quiz-input` is a React-Native package that allows the creation of individual character text inputs. The user will simply type with the keyboard and be automatically moved to the next input or to the previous one (in case of backspace). Spaces are also supported, therefore it is suitable for Quiz-like interfaces, Credit Card inputs, OTP screens and so on.
+`react-native-quiz-input` is a React-Native package that allows the creation of individual character text inputs. While typing, focus will automatically move to the next input or to the previous one (in case of backspace). Spaces are also supported, therefore it is suitable for Quiz-like interfaces, Credit Card inputs, OTP screens and so on.
 
 
 ## Installation
@@ -26,7 +26,7 @@ Import the component in your project:
 import QuizInput from 'react-native-quiz-input'
 ```
 Use the component:
-```typescript
+```jsx
 <QuizInput
     wordStructure={ [ true, true, true, false, true, true, true ] }
     onChange={ action( 'onChange' ) }
@@ -37,8 +37,8 @@ Use the component:
 
 | Name             | Type                       | Description                                                                                                              | Example                                   | isRequired? |
 |:-----------------|:---------------------------| :------------------------------------------------------------------------------------------------------------------------| :-----------------------------------------|:------------|
-| wordStructure    | `ReadonlyArray<boolean>`   | Array representation of the words, where `true` is a letter and `false` is a space                                       | `[true, true, false, true, true, true]`   | yes         |
-| onChange         | `(TCallbackData) => void`  | Callback function. It will return the input content as array and as string                                               | check types for more details              | yes         |
+| wordStructure    | `TWordStructure`           | Array representation of the words, where `true` is a letter and `false` is a space                                       | `[true, true, false, true, true, true]`   | yes         |
+| onChange         | `(TCallbackData) => void`  | Callback function. It will return the input content as array and as string                                               | check types section for data structure    | yes         |
 | maxBoxesPerLine  | `number`                   | Max input boxes per line. When set, it will automatically divide in multiple rows when needed. <br />Default: `0` (off)  | `13`                                      | no          |
 | lineBreakOnSpace | `boolean`                  | Create a new row for each word.<br /> Default: `false`                                                                   | `true`                                    | no          | 
 | autoFocus        | `boolean`                  | Autofocus first input when component is loaded.<br /> Default: `true`                                                    | `true`                                    | no          |
@@ -48,7 +48,41 @@ Use the component:
 | size             | `small \| medium \| large` | Size of each input.<br /> Default: `medium`                                                                              | `large`                                   | no          |
 
 ## Types
-WIP
+### TWordStructure
+```
+ReadonlyArray<boolean>
+```
+ Word structure is defined by providing an array of booleans where `true` means letter and `false` mean space.
+
+**Example**:
+```
+Hello World
+[ true, true, true, true, true, false, true, true, true, true, true ]
+```
+
+### TCallbackData
+```
+{
+    wordArray: ReadonlyArray<string | false>,
+    wordString: string
+}
+```
+The callback returns an object with 2 properties:
+#### wordArray
+An array with the input content. Each row in the array is either a string with the letter or `false` in case of a space.
+
+### wordString
+The input content as a string
+
+**Example**:
+```
+{
+    wordArray: ['H', 'E', 'L', 'L', 'O', false, 'W', 'O', 'R', 'L', 'D' ],
+    wordString: 'HELLO WORLD'
+}
+```
+
+
 
 ## Other examples
 WIP
