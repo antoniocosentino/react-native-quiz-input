@@ -1,8 +1,8 @@
 # react-native-quiz-input
-![Platforms]( assets/platforms-badge.svg )
+![Platforms]( https://raw.githubusercontent.com/antoniocosentino/react-native-quiz-input/main/assets/platforms-badge.svg )
 ![Unit tests]( https://github.com/antoniocosentino/react-native-quiz-input/actions/workflows/unit-tests.yml/badge.svg )
 ## Basic Demo
-![Basic Demo]( assets/basic-demo.gif )
+![Basic Demo]( https://raw.githubusercontent.com/antoniocosentino/react-native-quiz-input/main/assets/basic-demo.gif )
 
 ## Description
 `react-native-quiz-input` is a React-Native package that allows the creation of individual character text inputs. While typing, focus will automatically move to the next input or to the previous one (in case of backspace). Spaces are also supported, therefore it is suitable for Quiz-like interfaces, Credit Card inputs, OTP screens and so on.
@@ -101,7 +101,7 @@ const wordStructure = [ true, true, true, true, true, false, true, true, true, t
     onChange={ onChange }
 />
 ```
-![Basic Demo]( assets/multi-line.gif )
+![Basic Demo]( https://raw.githubusercontent.com/antoniocosentino/react-native-quiz-input/main/assets/multi-line.gif )
 
 ### With long word and maxBoxesPerLine set
 ```TSX
@@ -114,7 +114,7 @@ const wordStructure = [ true, true, true, true, true, true, true, true, true, tr
     maxBoxesPerLine={ 12 }
 />
 ```
-![Basic Demo]( assets/long-word.gif )
+![Basic Demo]( https://raw.githubusercontent.com/antoniocosentino/react-native-quiz-input/main/assets/long-word.gif )
 
 ### With size: big
 ```TSX
@@ -128,7 +128,7 @@ const wordStructure = [ true, true, true, true, true, false, true, true, true, t
 />
 ```
 
-![Basic Demo]( assets/size-big.gif )
+![Basic Demo]( https://raw.githubusercontent.com/antoniocosentino/react-native-quiz-input/main/assets/size-big.gif )
 
 ### With size: small
 ```TSX
@@ -141,7 +141,7 @@ const wordStructure = [ true, true, true, true, true, true, true, true, true, tr
     size={ 'small' }
 />
 ```
-![Basic Demo]( assets/size-small.gif )
+![Basic Demo]( https://raw.githubusercontent.com/antoniocosentino/react-native-quiz-input/main/assets/size-small.gif )
 
 ## Live Demos
 This library is currently used in [Flipping Cards](https://antoniocosentino.github.io/flippingCards/), an iOS/Android flashcards app availble in the App Store and Play Store. If you want to see the component in action just download the app and try out **Challenge Mode**.
