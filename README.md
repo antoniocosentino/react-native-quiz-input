@@ -23,20 +23,20 @@ npm install react-native-quiz-input --save
 ## Usage
 Import the component in your project:
 ```TSX
-import QuizInput from 'react-native-quiz-input';
+import { QuizInput } from 'react-native-quiz-input';
 ```
 Use the component:
 ```TSX
-
-const onChange = ( data ) => {
-    console.log(data);
-    // your code goes here
-};
-
 <QuizInput
     wordStructure={ [ true, true, true, false, true, true, true ] }
     onChange={ onChange }
 />
+```
+```TSX
+const onChange = ( data ) => {
+    console.log(data);
+    // your code goes here
+};
 ```
 
 ## Props
