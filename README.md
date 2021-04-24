@@ -22,14 +22,20 @@ npm install react-native-quiz-input
 
 ## Usage
 Import the component in your project:
-```
+```TSX
 import QuizInput from 'react-native-quiz-input'
 ```
 Use the component:
-```jsx
+```TSX
+
+const onChange = ( data ) => {
+    console.log(data);
+    // your code goes here
+}
+
 <QuizInput
     wordStructure={ [ true, true, true, false, true, true, true ] }
-    onChange={ action( 'onChange' ) }
+    onChange={ onChange }
 />
 ```
 
@@ -49,7 +55,7 @@ Use the component:
 
 ## Types
 ### TWordStructure
-```
+```typescript
 ReadonlyArray<boolean>
 ```
  Word structure is defined by providing an array of booleans where `true` means letter and `false` mean space.
@@ -61,10 +67,10 @@ Hello World
 ```
 
 ### TCallbackData
-```
-{
-    wordArray: ReadonlyArray<string | false>,
-    wordString: string
+```typescript
+type TCallbackData = {
+    wordArray: ReadonlyArray<string | false>;
+    wordString: string;
 }
 ```
 The callback returns an object with 2 properties:
@@ -85,4 +91,54 @@ The input content as a string
 
 
 ## Other examples
-WIP
+### With lineBreakOnSpace: true
+```TSX
+
+const wordStructure = [ true, true, true, true, true, false, true, true, true, true, true ];
+
+<QuizInput
+    wordStructure={ wordStructure }
+    onChange={ onChange }
+/>
+```
+![Basic Demo]( assets/multi-line.gif )
+
+### With long word and maxBoxesPerLine set
+```TSX
+
+const wordStructure = [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true ];
+
+<QuizInput
+    wordStructure={ wordStructure }
+    onChange={ onChange }
+    maxBoxesPerLine={ 12 }
+/>
+```
+![Basic Demo]( assets/long-word.gif )
+
+### With size: big
+```TSX
+
+const wordStructure = [ true, true, true, true, true, false, true, true, true, true, true ];
+
+<QuizInput
+    wordStructure={ wordStructure }
+    onChange={ onChange }
+    size={ 'big' }
+/>
+```
+
+![Basic Demo]( assets/size-big.gif )
+
+### With size: small
+```TSX
+
+const wordStructure = [ true, true, true, true, true, false, true, true, true, true, true ];
+
+<QuizInput
+    wordStructure={ wordStructure }
+    onChange={ onChange }
+    size={ 'small' }
+/>
+```
+![Basic Demo]( assets/size-small.gif )
