@@ -1,11 +1,12 @@
 {
   "name": "react-native-quiz-input",
   "version": "1.0.2",
-  "description": "",
+  "description": "React Native Component to create individual character inputs for quiz-like interfaces, OTP screens etc.",
   "homepage": "https://github.com/antoniocosentino/react-native-quiz-input",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
-  "author": "Antonio Cosentino <hello@antoniocosentino.com>",
+  "keywords": [ "android", "ios", "typescript", "otp", "react-native", "input", "quiz", "textinput" ],
+  "author": "Antonio Cosentino <hello@antoniocosentino.com> (https://antoniocosentino.com)",
   "license": "MIT",
   "files": [
     "lib",
