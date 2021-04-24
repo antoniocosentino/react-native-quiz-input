@@ -1,6 +1,6 @@
 # react-native-quiz-input
+![Platforms]( assets/platforms-badge.svg )
 ![Unit tests]( https://github.com/antoniocosentino/react-native-quiz-input/actions/workflows/unit-tests.yml/badge.svg )
-
 ## Basic Demo
 ![Basic Demo]( assets/basic-demo.gif )
 
@@ -16,7 +16,7 @@ yarn add react-native-quiz-input
 
 or NPM:
 ```
-npm install react-native-quiz-input
+npm install react-native-quiz-input --save
 ```
 
 
@@ -133,7 +133,7 @@ const wordStructure = [ true, true, true, true, true, false, true, true, true, t
 ### With size: small
 ```TSX
 
-const wordStructure = [ true, true, true, true, true, false, true, true, true, true, true ];
+const wordStructure = [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true ];
 
 <QuizInput
     wordStructure={ wordStructure }
@@ -142,3 +142,17 @@ const wordStructure = [ true, true, true, true, true, false, true, true, true, t
 />
 ```
 ![Basic Demo]( assets/size-small.gif )
+
+## Live Demos
+This library is currently used in [Flipping Cards](https://antoniocosentino.github.io/flippingCards/), an iOS/Android flashcards app availble in the App Store and in the Play Store. If you want to see the component in action just download the app and try out **Challenge Mode**.
+
+## Credits
+Developed and maintained by [@antoniocosentino](https://github.com/antoniocosentino)
+
+Many thanks to [@demchenkoalex](https://github.com/demchenkoalex) for creating the [boilerplate](https://github.com/demchenkoalex/react-native-module-template) that I used for the library.
+
+## License
+[MIT](LICENSE)
+
+## Found a bug?
+Please [open an issue](https://github.com/antoniocosentino/react-native-quiz-input/issues). PRs are also welcome 😉 
