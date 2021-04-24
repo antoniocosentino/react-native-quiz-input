@@ -44,8 +44,8 @@ const onChange = ( data ) => {
 | Name             | Type                       | Description                                                                                                              | Example                                   | isRequired? |
 |:-----------------|:---------------------------| :------------------------------------------------------------------------------------------------------------------------| :-----------------------------------------|:------------|
 | wordStructure    | `TWordStructure`           | Array representation of the words, where `true` is a letter and `false` is a space                                       | `[true, true, false, true, true, true]`   | yes         |
-| onChange         | `(TCallbackData) => void`  | Callback function. It will return the input content as array and as string                                               | check types section for data structure    | yes         |
-| maxBoxesPerLine  | `number`                   | Max input boxes per line. When set, it will automatically divide in multiple rows when needed. <br />Default: `0` (off)  | `13`                                      | no          |
+| onChange         | `(TCallbackData) => void`  | Callback function. It will return the input content as an array and as a string                                          | check types section for data structure    | yes         |
+| maxBoxesPerLine  | `number`                   | Max input boxes per line. When set, it will automatically create multiple rows when needed. <br />Default: `0` (off)     | `13`                                      | no          |
 | lineBreakOnSpace | `boolean`                  | Create a new row for each word.<br /> Default: `false`                                                                   | `true`                                    | no          | 
 | autoFocus        | `boolean`                  | Autofocus first input when component is loaded.<br /> Default: `true`                                                    | `true`                                    | no          |
 | backgroundColor  | `string`                   | Background color of each input box.<br /> Default: `transparent`                                                         | `#7FDCFF`                                 | no          |
@@ -151,7 +151,7 @@ Are you using this library in your project? Feel free to let me know by [opening
 ## Credits
 Developed and maintained by [@antoniocosentino](https://github.com/antoniocosentino)
 
-Many thanks to [@demchenkoalex](https://github.com/demchenkoalex) for creating the [boilerplate](https://github.com/demchenkoalex/react-native-module-template) that I used for the library.
+Many thanks to [@demchenkoalex](https://github.com/demchenkoalex) for creating the [boilerplate](https://github.com/demchenkoalex/react-native-module-template) that I used for this repo.
 
 ## License
 [MIT](LICENSE)
