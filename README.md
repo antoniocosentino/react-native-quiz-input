@@ -23,7 +23,7 @@ npm install react-native-quiz-input --save
 ## Usage
 Import the component in your project:
 ```TSX
-import QuizInput from 'react-native-quiz-input'
+import QuizInput from 'react-native-quiz-input';
 ```
 Use the component:
 ```TSX
@@ -31,7 +31,7 @@ Use the component:
 const onChange = ( data ) => {
     console.log(data);
     // your code goes here
-}
+};
 
 <QuizInput
     wordStructure={ [ true, true, true, false, true, true, true ] }
@@ -56,7 +56,7 @@ const onChange = ( data ) => {
 ## Types
 ### TWordStructure
 ```typescript
-ReadonlyArray<boolean>
+type TWordStructure = ReadonlyArray<boolean>;
 ```
  Word structure is defined by providing an array of booleans where `true` means letter and `false` mean space.
 
@@ -71,7 +71,7 @@ Hello World
 type TCallbackData = {
     wordArray: ReadonlyArray<string | false>;
     wordString: string;
-}
+};
 ```
 The callback returns an object with 2 properties:
 #### wordArray
@@ -144,7 +144,9 @@ const wordStructure = [ true, true, true, true, true, true, true, true, true, tr
 ![Basic Demo]( assets/size-small.gif )
 
 ## Live Demos
-This library is currently used in [Flipping Cards](https://antoniocosentino.github.io/flippingCards/), an iOS/Android flashcards app availble in the App Store and in the Play Store. If you want to see the component in action just download the app and try out **Challenge Mode**.
+This library is currently used in [Flipping Cards](https://antoniocosentino.github.io/flippingCards/), an iOS/Android flashcards app availble in the App Store and Play Store. If you want to see the component in action just download the app and try out **Challenge Mode**.
+
+Are you using this library in your project? Feel free to let me know by [opening an issue](https://github.com/antoniocosentino/react-native-quiz-input/issues). I will be happy to feature your app here.
 
 ## Credits
 Developed and maintained by [@antoniocosentino](https://github.com/antoniocosentino)
