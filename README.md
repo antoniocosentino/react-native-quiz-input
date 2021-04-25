@@ -145,6 +145,12 @@ const wordStructure = [ true, true, true, true, true, true, true, true, true, tr
 ![Basic Demo]( https://raw.githubusercontent.com/antoniocosentino/react-native-quiz-input/main/assets/size-small.gif )
 
 ## Live Demos
+
+### Playground
+You can try out the component in different environments (including your device) on Expo.io
+- [react-native-quiz-input-demo](https://snack.expo.io/@antoniocosentino/react-native-quiz-input-demo)
+
+### Live Apps
 This library is currently used in [Flipping Cards](https://antoniocosentino.github.io/flippingCards/), an iOS/Android flashcards app availble in the App Store and Play Store. If you want to see the component in action just download the app and try out **Challenge Mode**.
 
 Are you using this library in your project? Feel free to let me know by [opening an issue](https://github.com/antoniocosentino/react-native-quiz-input/issues). I will be happy to feature your app here.
