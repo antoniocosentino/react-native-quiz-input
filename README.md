@@ -74,7 +74,7 @@ type TCallbackData = {
 };
 ```
 The callback returns an object with 2 properties:
-#### wordArray
+### wordArray
 An array with the input content. Each row in the array is either a string with the letter or `false` in case of a space.
 
 ### wordString
@@ -99,6 +99,7 @@ const wordStructure = [ true, true, true, true, true, false, true, true, true, t
 <QuizInput
     wordStructure={ wordStructure }
     onChange={ onChange }
+    lineBreakOnSpace={ true }
 />
 ```
 ![Basic Demo]( https://raw.githubusercontent.com/antoniocosentino/react-native-quiz-input/main/assets/multi-line.gif )

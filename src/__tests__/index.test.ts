@@ -139,7 +139,7 @@ describe( 'getNextValidIndex', () => {
         }
         {
             const input = [ true, false, true, true ];
-            expect( getNextValidIndex( input, 3 ) ).toEqual( 3 );
+            expect( getNextValidIndex( input, 3 ) ).toEqual( -1 );
         }
 
     } );

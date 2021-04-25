@@ -155,8 +155,8 @@ export const getSmartChunkedArray = (
 
 export const getNextValidIndex = ( wordStructure: TWordStructure, currentIndex: number ): number => {
 
-    if ( currentIndex >= wordStructure.length - 1 ) {
-        return currentIndex;
+    if ( currentIndex > wordStructure.length - 1 ) {
+        return -1;
     }
 
     if ( wordStructure[ currentIndex + 1 ] ) {
@@ -332,10 +332,11 @@ export const QuizInput = ( props: TIndividualCharsInput ) => {
             }
 
         } else {
-            typedWordArrayClone[ index ] = nativeEvent.key;
-
             const nextIndex = getNextValidIndex( wordStructure, index );
-            setActiveLetter( nextIndex );
+            if ( nextIndex !== activeLetter ) {
+                typedWordArrayClone[ index ] = nativeEvent.key;
+                setActiveLetter( nextIndex );
+            }
         }
 
         setTypeWordArray( typedWordArrayClone );
