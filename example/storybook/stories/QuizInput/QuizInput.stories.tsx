@@ -48,7 +48,7 @@ storiesOf( 'QuizInput', module )
             </View>
         );
     } )
-    .add( 'All available props', () => {
+    .add( 'Props playground', () => {
         const sampleWord = text( 'Sample Word', 'Hello world' );
         const wordStructure = getWordStructure( sampleWord );
 
@@ -64,6 +64,93 @@ storiesOf( 'QuizInput', module )
                     textColor={ color( 'Text Color', '#000' ) }
                     borderColor={ color( 'Box Border Color', '#BBBBBB' ) }
                     size={ select( 'Size', sizeOptions, 'medium' ) }
+                />
+            </View>
+        );
+    } )
+    .add( 'With lineBreakOnSpace', () => {
+        const sampleWord = text( 'Sample Word', 'Hello world' );
+        const wordStructure = getWordStructure( sampleWord );
+
+        return (
+            <View style={ styles.wrapperView }>
+                <QuizInput
+                    wordStructure={ wordStructure }
+                    onChange={ action( 'onChange' ) }
+                    lineBreakOnSpace={ true }
+                />
+            </View>
+        );
+    } )
+    .add( 'With maxBoxesPerLine', () => {
+        const sampleWord = text( 'Sample Word', 'Extraterrestrial' );
+        const wordStructure = getWordStructure( sampleWord );
+
+        return (
+            <View style={ styles.wrapperView }>
+                <QuizInput
+                    wordStructure={ wordStructure }
+                    onChange={ action( 'onChange' ) }
+                    maxBoxesPerLine={ 12 }
+                />
+            </View>
+        );
+    } )
+    .add( 'With maxBoxesPerLine + lineBreakOnSpace', () => {
+        const sampleWord = text( 'Sample Word', 'This is extraterrestrial' );
+        const wordStructure = getWordStructure( sampleWord );
+
+        return (
+            <View style={ styles.wrapperView }>
+                <QuizInput
+                    wordStructure={ wordStructure }
+                    onChange={ action( 'onChange' ) }
+                    lineBreakOnSpace={ true }
+                    maxBoxesPerLine={ 12 }
+                />
+            </View>
+        );
+    } )
+    .add( 'Size: large', () => {
+        const sampleWord = text( 'Sample Word', 'Hello world' );
+        const wordStructure = getWordStructure( sampleWord );
+
+        return (
+            <View style={ styles.wrapperView }>
+                <QuizInput
+                    wordStructure={ wordStructure }
+                    onChange={ action( 'onChange' ) }
+                    size={ 'large' }
+                />
+            </View>
+        );
+    } )
+    .add( 'Size: small', () => {
+        const sampleWord = text( 'Sample Word', 'Congratulations' );
+        const wordStructure = getWordStructure( sampleWord );
+
+        return (
+            <View style={ styles.wrapperView }>
+                <QuizInput
+                    wordStructure={ wordStructure }
+                    onChange={ action( 'onChange' ) }
+                    size={ 'small' }
+                />
+            </View>
+        );
+    } )
+    .add( 'Alternative Styling', () => {
+        const sampleWord = text( 'Sample Word', 'Hello world' );
+        const wordStructure = getWordStructure( sampleWord );
+
+        return (
+            <View style={ styles.wrapperView }>
+                <QuizInput
+                    wordStructure={ wordStructure }
+                    onChange={ action( 'onChange' ) }
+                    backgroundColor={ '#F7F7DA' }
+                    borderColor={ '#F7CD00' }
+                    textColor={ '#E8960F' }
                 />
             </View>
         );

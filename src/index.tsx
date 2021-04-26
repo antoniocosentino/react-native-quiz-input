@@ -4,9 +4,12 @@ import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import { View, NativeSyntheticEvent, TextInputKeyPressEventData, NativeModules, StyleSheet } from 'react-native';
 import chunk from 'lodash.chunk';
 
+
+export type TWordArray = ReadonlyArray<string | boolean>;
+
 export type TCallbackData = {
-    wordArray: ReadonlyArray<string | false>,
-    wordString: string
+    wordArray: TWordArray;
+    wordString: string;
 };
 
 type TWordStructure = ReadonlyArray<boolean>;
@@ -76,6 +79,17 @@ const getSizeRelatedProps = ( size: TAllowedSizes ): TSizeRelatedProps => {
             };
     }
 
+};
+
+export const transformWordStructureToTemplateArray = ( wordStructure: TWordStructure ): TWordArray => {
+
+    return wordStructure.map( ( singleLetter ) => {
+        if ( singleLetter ) {
+            return '';
+        } else {
+            return false;
+        }
+    } );
 };
 
 export const transformWordStructureToString = ( wordStructure: TWordStructure ): string => {
@@ -155,7 +169,7 @@ export const getSmartChunkedArray = (
 
 export const getNextValidIndex = ( wordStructure: TWordStructure, currentIndex: number ): number => {
 
-    if ( currentIndex > wordStructure.length - 1 ) {
+    if ( currentIndex >= wordStructure.length - 1 ) {
         return -1;
     }
 
@@ -179,7 +193,7 @@ export const getPreviousValidIndex = ( wordStructure: TWordStructure, currentInd
     return getPreviousValidIndex( wordStructure, currentIndex - 1 );
 };
 
-export const getWordStringForExternalMethod = ( newWordArray: string[] ): string => {
+export const getWordStringForExternalMethod = ( newWordArray: TWordArray ): string => {
 
     const processedArr = [];
 
@@ -188,7 +202,11 @@ export const getWordStringForExternalMethod = ( newWordArray: string[] ): string
 
         switch ( currentLetter ) {
             case undefined:
+            case false:
                 processedArr.push( ' ' );
+                break;
+            case true:
+                processedArr.push( '*' ); // this case is here only for extra safety, but it's not supposed to happen
                 break;
             case '':
                 processedArr.push( '' );
@@ -256,7 +274,8 @@ export const QuizInput = ( props: TIndividualCharsInput ) => {
     } = mergedProps;
     const inputsRef = useRef( [] as any );
     const [ activeLetter, setActiveLetter ] = useState( 0 );
-    const [ typedWordArray, setTypeWordArray ] = useState( [] as string[] );
+
+    const [ inputContentArray, setInputContentArray ] = useState( transformWordStructureToTemplateArray( wordStructure ) as string [] );
 
     useEffect( () => {
         inputsRef.current = inputsRef.current.slice( 0, wordStructure.length );
@@ -272,6 +291,16 @@ export const QuizInput = ( props: TIndividualCharsInput ) => {
         inputsRef?.current?.[activeLetter]?.clear();
         inputsRef?.current?.[activeLetter]?.focus();
     }, [ activeLetter ] );
+
+    useEffect( () => {
+        const callbackData = {
+            wordArray: inputContentArray,
+            wordString: getWordStringForExternalMethod( inputContentArray )
+        } as TCallbackData;
+
+        externalOnChange( callbackData  );
+
+    }, [ inputContentArray, externalOnChange ] );
 
     const sizeRelatedProps = getSizeRelatedProps( size! );
 
@@ -315,39 +344,30 @@ export const QuizInput = ( props: TIndividualCharsInput ) => {
         }
     } );
 
+    const onTextChange = ( letter: string, index: number ) => {
+        const newInputContent = [ ...inputContentArray ];
+        newInputContent.splice( index, 1, letter );
+        setInputContentArray( newInputContent );
+    };
 
     const onLetterChange = ( event: NativeSyntheticEvent<TextInputKeyPressEventData>, index: number ) => {
 
         const { nativeEvent } = event;
-        const typedWordArrayClone = typedWordArray.slice();
 
         if ( nativeEvent.key === 'Backspace' ) {
 
-            if ( !typedWordArray[ index ] ) {
+            if ( !inputContentArray[ index ] ) {
                 const prevIndex = getPreviousValidIndex( wordStructure, index );
                 setActiveLetter( prevIndex );
-                typedWordArrayClone[ prevIndex ] = '';
+                onTextChange( '', prevIndex );
             } else {
-                typedWordArrayClone[ index ] = '';
+                onTextChange( '', index );
             }
 
         } else {
             const nextIndex = getNextValidIndex( wordStructure, index );
-            if ( nextIndex !== activeLetter ) {
-                typedWordArrayClone[ index ] = nativeEvent.key;
-                setActiveLetter( nextIndex );
-            }
+            setActiveLetter( nextIndex );
         }
-
-        setTypeWordArray( typedWordArrayClone );
-
-        const inputContent = {
-            wordArray: getWordArrayForExternalMethod( wordStructure, typedWordArrayClone ),
-            wordString: getWordStringForExternalMethod( typedWordArrayClone )
-        } as TCallbackData;
-
-        externalOnChange( inputContent  );
-
     };
 
     const wordStructureRows = getSmartChunkedArray( wordStructure, lineBreakOnSpace!, maxBoxesPerLine! );
@@ -370,6 +390,7 @@ export const QuizInput = ( props: TIndividualCharsInput ) => {
                                         style={ individualCharsInputStyles.singleInput as any }
                                         maxLength={ 1 }
                                         onKeyPress={ ( event ) => onLetterChange( event, derivedIndex ) }
+                                        onChangeText={ ( letter ) => onTextChange( letter, derivedIndex ) }
                                         autoCorrect={ false }
                                         autoCompleteType={ 'off' }
                                         autoCapitalize={ 'characters' }

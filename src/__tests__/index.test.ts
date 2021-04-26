@@ -6,7 +6,8 @@ import {
     getPreviousValidIndex,
     getWordStringForExternalMethod,
     getWordArrayForExternalMethod,
-    getDerivedIndex
+    getDerivedIndex,
+    transformWordStructureToTemplateArray
 } from '../index';
 
 describe( 'transformWordStructureToString', () => {
@@ -179,6 +180,16 @@ describe( 'getWordStringForExternalMethod', () => {
             expect( getWordStringForExternalMethod( input  ) ).toEqual( 'HELLO WORLD' );
         }
 
+        {
+            const input = [ 'H', 'E', 'L', 'L', 'O', false, 'W', 'O', 'R', 'L', 'D' ];
+            expect( getWordStringForExternalMethod( input  ) ).toEqual( 'HELLO WORLD' );
+        }
+
+        {
+            const input = [ 'H', 'E', 'L', 'L', 'O', false, 'W', 'O', true, 'L', 'D' ];
+            expect( getWordStringForExternalMethod( input  ) ).toEqual( 'HELLO WO*LD' );
+        }
+
     } );
 } );
 
@@ -296,4 +307,30 @@ describe( 'getDerivedIndex', () => {
         }
 
     } );
+} );
+
+describe( 'transformWordStructureToTemplateArray', () => {
+    it( 'provided a word structure should return a template array with empty strings (or false)', () => {
+        {
+            const input = [ true, true, true, true, true, false, true, true, true, true, true ];
+            const expected = [ '', '', '', '', '', false, '', '', '', '', '' ];
+
+            expect( transformWordStructureToTemplateArray( input ) ).toEqual( expected );
+        }
+
+        {
+            const input = [ true, true, true, true, true, true, true, true, true, true, true ];
+            const expected = [ '', '', '', '', '', '', '', '', '', '', '' ];
+
+            expect( transformWordStructureToTemplateArray( input ) ).toEqual( expected );
+        }
+
+        {
+            const input = [ true, true, true, false, true, true, true, true, false, true, true ];
+            const expected = [ '', '', '', false, '', '', '', '', false, '', '' ];
+
+            expect( transformWordStructureToTemplateArray( input ) ).toEqual( expected );
+        }
+    } );
+
 } );
